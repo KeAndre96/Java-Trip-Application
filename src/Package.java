@@ -4,11 +4,11 @@ public class Package {
     private double price;
     private double hours_of_travel;
 
-    public Package(){
-        travelsFrom = "";
-        travelsTo = "";
-        price = 0.0;
-        hours_of_travel = 0.0;
+    public Package(String travelsFrom, String travelsTo, double price, double hours_of_travel){
+        this.travelsFrom = travelsFrom;
+        this.travelsTo = travelsTo;
+        this.price = price;
+        this.hours_of_travel = hours_of_travel;
     }
     public void setTravelsFrom(String travelsFrom){
         this.travelsFrom = travelsFrom;
