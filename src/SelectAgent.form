@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="SelectAgent">
-  <grid id="27dc6" binding="mainPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+  <grid id="27dc6" binding="mainPanel" layout-manager="CardLayout" hgap="0" vgap="0" show="b1d73">
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
@@ -35,6 +35,7 @@
                 <item value="Agent M"/>
                 <item value="Agent 47"/>
               </model>
+              <selectionMode value="0"/>
             </properties>
           </component>
           <component id="32136" class="javax.swing.JButton" binding="selectButton" default-binding="true">
@@ -92,7 +93,7 @@
       <grid id="9af22" binding="AddTravelersPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <card name="Card2"/>
+          <card name="AddTravelersCard"/>
         </constraints>
         <properties/>
         <border type="none"/>

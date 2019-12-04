@@ -21,7 +21,10 @@ public class SelectAgent {
     private JPanel PayCreditPanel;
     private JPanel AddThankYouNotePanel;
     private JPanel ShowIteneraryPanel;
+    private JTextField textField1;
+    private JButton Add;
     private JList list2;
+    private JButton continueButton;
     private JList list3;
     private JList list4;
     private JButton addButton;
@@ -41,6 +44,7 @@ public class SelectAgent {
     private JButton continueButton2;
 
     public SelectAgent() {
+        list1.setSelectedIndex(0);
         // List name of Agents in Trip
         DefaultListModel listModel1 = new DefaultListModel();
         List<Person> agents = AgentOptions.GetsOptions();
@@ -80,15 +84,23 @@ public class SelectAgent {
                 cl.show(mainPanel, "AddTravelersCard");
             }
         });
+        createTripButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "AddTravelersCard");
+            }
+        });
         // Adding Travelers to a Trip List
         DefaultListModel listModel3 = new DefaultListModel();
-        addButton1.addActionListener(new ActionListener() {
+       /* addButton1.addActionListener(new ActionListener() {    //  Causing null pointer exceptions
             @Override
             public void actionPerformed(ActionEvent e) {
                 listModel3.addElement(list2.getSelectedValue());
                 list6.setModel(listModel3);
             }
-        });
+        });*/
+/*
         continueButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,6 +108,7 @@ public class SelectAgent {
                 cl.show(mainPanel, "AddPackageCard");
             }
         });
+*/
         DefaultListModel listModel5 = new DefaultListModel();
         addButton.addActionListener(new ActionListener() {
             @Override
