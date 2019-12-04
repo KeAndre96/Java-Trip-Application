@@ -65,7 +65,7 @@ public class SelectAgent {
         }
         list3.setModel(listModel4);
 
-        // Got to page thats shows the list of trips to edit or creating a trip
+        // Go to page that shows the list of trips to edit or creating a trip
         selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,9 +73,12 @@ public class SelectAgent {
                 cl.show(mainPanel, "ListTripsCard");
             }
         });
-        createTripButton.addActionListener(new ActionListener() {
+        createTripButton.addActionListener(new ActionListener() { //create a trip and go to "add travelers" screen
             @Override
             public void actionPerformed(ActionEvent e) {
+                //create trip
+
+                //switch to travelers card
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "AddTravelersCard");
             }
