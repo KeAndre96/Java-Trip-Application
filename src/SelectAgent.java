@@ -98,6 +98,7 @@ final class TravelerOptions{
                 "6455 Old Avenue"));
         placeHolder.add(new Traveler("Lucy Smith", "4041234567", "adamsmith@gmail.com",
                 "6455 Old Avenue"));
+        OptionsList = Collections.unmodifiableList(placeHolder);
     }
     public static List GetsOptions(){
         if(_singletonTraveler == null){
