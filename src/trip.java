@@ -34,6 +34,10 @@ public class trip {
     {
       Trip.put("travelers",name);
     }
+    public void addAgent(String nameOfAgent)
+    {
+        Trip.put("agent", nameOfAgent);
+    }
     public void writeTrip()
     {
         try(FileWriter file = new FileWriter("trips.json"))
