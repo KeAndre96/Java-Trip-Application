@@ -203,12 +203,20 @@
               <text value="Assigned Packages"/>
             </properties>
           </component>
+          <component id="9839" class="javax.swing.JButton" binding="saveButton" default-binding="true">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Save"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="98a2" binding="ChoosePaymentPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <card name="ChoosePaymentCard"/>
+          <card name="Card4"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -247,7 +255,7 @@
       <grid id="abd6f" binding="PayCreditPanel" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <card name="PayCreditCard"/>
+          <card name="Card5"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -326,7 +334,7 @@
       <grid id="d35b7" binding="AddThankYouNotePanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <card name="ThankYouCard"/>
+          <card name="Card6"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -360,7 +368,7 @@
       <grid id="ed6d6" binding="ShowIteneraryPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <card name="IteneraryCard"/>
+          <card name="Card7"/>
         </constraints>
         <properties/>
         <border type="none"/>
