@@ -40,9 +40,9 @@ public class Trip   {
         Trip.put("setState",Integer.toString(i));
         this.state = i;
     }
-    public void addAgent(String nameOfAgent)
+    public void addAgent(Person agent)
     {
-        Trip.put("agent", nameOfAgent);
+        Trip.put("agent", agent.getName());
         state = 1;
        // System.out.println("Added agent");
     }

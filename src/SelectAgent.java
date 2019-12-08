@@ -23,27 +23,27 @@ public class SelectAgent {
     private JPanel PayCreditPanel;
     private JPanel AddThankYouNotePanel;
     private JPanel ShowIteneraryPanel;
-    private JList list2;
-    private JList list3;
-    private JList list4;
+    private JList availableTravelerList;
+    private JList availablePackageList;
+    private JList assignedPackageList;
     private JButton addButton;
     private JButton continueButton1;
-    private JList list5;
+    private JList paymentMethodList;
     private JButton payButton;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+    private JTextField cardNumberField;
+    private JTextField expDateField;
+    private JTextField zipField;
     private JButton payButton1;
-    private JTextArea textArea1;
+    private JTextArea thankYouTextArea;
     private JButton addNoteButton;
-    private JTextArea textArea2;
+    private JTextArea iteneraryTextArea;
     private JButton doneButton;
-    private JList list6;
+    private JList assignedTravelerList;
     private JButton addButton1;
     private JButton continueButton2;
     private String agentName;
     private ArrayList<String> travelersTemp;
-
+    private Person currentAgent;
 
 
     public SelectAgent() {
@@ -64,7 +64,7 @@ public class SelectAgent {
         for(int i = 0; i < agents.size(); i++){
             listModel2.addElement(travelers.get(i).getName());
         }
-        list2.setModel(listModel2);
+        availableTravelerList.setModel(listModel2);
 
         // List Packages
         DefaultListModel listModel4 = new DefaultListModel();
@@ -72,7 +72,7 @@ public class SelectAgent {
         for(int i = 0; i < packages.size(); i++){
             listModel4.addElement(packages.get(i).getTravelsTo());
         }
-        list3.setModel(listModel4);
+        availablePackageList.setModel(listModel4);
 
         // Go to page that shows the list of trips to edit or creating a trip
         selectAgentButton.addActionListener(new ActionListener() {
@@ -81,7 +81,8 @@ public class SelectAgent {
                 for (Person agent : agents) {
                     if (agent.getName().equalsIgnoreCase((String) agentList.getSelectedValue())) {
                         agentName = agent.getName();
-                        trip.addAgent(agentName);
+                        //trip.addAgent(agentName);
+                        currentAgent = agent;
                     }
                 }
 
@@ -93,7 +94,9 @@ public class SelectAgent {
         createTripButton.addActionListener(new ActionListener() { //create a trip and go to "add travelers" screen
             @Override
             public void actionPerformed(ActionEvent e) {
-                //create trip
+                //add selected agent from previous screen
+                trip.addAgent(currentAgent);
+                trip.setState(1); //set state to 1: add traveler screen
 
                 //switch to travelers card
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
@@ -105,9 +108,9 @@ public class SelectAgent {
         addButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listModel3.addElement(list2.getSelectedValue());
+                listModel3.addElement(availableTravelerList.getSelectedValue());
                 for(int i = 0; i < travelers.size(); i++){
-                    if(travelers.get(i).getName().equalsIgnoreCase((String) list2.getSelectedValue())){
+                    if(travelers.get(i).getName().equalsIgnoreCase((String) availableTravelerList.getSelectedValue())){
                         travelersTemp.add(travelers.get(i).getName());
                     }
                 }
@@ -115,7 +118,7 @@ public class SelectAgent {
                 {
                     trip.addTravelers(traveler);/////
                 }
-                list6.setModel(listModel3);
+                assignedTravelerList.setModel(listModel3);
             }
         });
         continueButton2.addActionListener(new ActionListener() {
@@ -129,22 +132,16 @@ public class SelectAgent {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listModel5.addElement(list3.getSelectedValue());
+                listModel5.addElement(availablePackageList.getSelectedValue());
                 String temp;
                 for(int i = 0; i < packages.size(); i++){
-                    if(packages.get(i).getTravelsFrom().equalsIgnoreCase((String) list3.getSelectedValue())){
+                    if(packages.get(i).getTravelsFrom().equalsIgnoreCase((String) availablePackageList.getSelectedValue())){
                         temp = packages.get(i).getTravelsFrom();
                         trip.addPackages(temp);
                     }
                 }
 
-                list4.setModel(listModel5);
-            }
-        });
-        selectAgentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
+                assignedPackageList.setModel(listModel5);
             }
         });
         continueButton1.addActionListener(new ActionListener() {
