@@ -48,6 +48,7 @@ public class SelectAgent {
     private JList list6;
     private JButton addButton1;
     private JButton continueButton2;
+    private JButton saveButton;
     private String temp;
     private ArrayList<String> travelersTemp;
 
@@ -133,7 +134,7 @@ public class SelectAgent {
                 for(int i = 0; i < packages.size(); i++){
                     if(packages.get(i).getTravelsFrom().equalsIgnoreCase((String) list3.getSelectedValue())){
                         temp = packages.get(i).getTravelsFrom();
-                        t.addPackages(Integer.parseInt(temp));
+                        t.addPackages(temp);
                     }
                 }
 
