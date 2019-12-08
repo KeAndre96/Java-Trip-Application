@@ -3,14 +3,12 @@ public class Package {
     private String travelsTo;
     private double price;
     private double hours_of_travel;
-    private int packageId;
 
     public Package(String travelsFrom, String travelsTo, double price, double hours_of_travel){
         this.travelsFrom = travelsFrom;
         this.travelsTo = travelsTo;
         this.price = price;
         this.hours_of_travel = hours_of_travel;
-        this.packageId = 1;
     }
     public void setTravelsFrom(String travelsFrom){
         this.travelsFrom = travelsFrom;
