@@ -40,7 +40,7 @@ public class SelectAgent {
     private JButton doneButton;
     private JList assignedTravelerList;
     private JButton addTravelerButton;
-    private JButton continueButton2;
+    private JButton addTravelersContinueButton;
     private String agentName;
     private ArrayList<String> travelersTemp;
     private Person currentAgent;
@@ -63,7 +63,7 @@ public class SelectAgent {
         DefaultListModel listModel2 = new DefaultListModel();
         List<Traveler> travelers = TravelerOptions.GetsOptions();
         for(int i = 0; i < agents.size(); i++){
-            listModel2.addElement(travelers.get(i).getName());
+            listModel2.addElement(travelers.get(i));
         }
         availableTravelerList.setModel(listModel2);
 
@@ -116,7 +116,7 @@ public class SelectAgent {
                 assignedTravelerList.setModel(assignedTravelersListModel);
             }
         });
-        continueButton2.addActionListener(new ActionListener() {
+        addTravelersContinueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //add assigned travelers to trip
@@ -273,6 +273,7 @@ final class TravelerOptions{
         }
         return _singletonTraveler.OptionsList;
     }
+
 }
 final class PackageOptions{
     private static final Object syncLock = new Object();

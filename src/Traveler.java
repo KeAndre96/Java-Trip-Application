@@ -11,4 +11,9 @@ public class Traveler extends Person {
     public String getAddress(){
         return address;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
