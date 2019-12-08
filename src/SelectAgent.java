@@ -5,20 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.json.JSONObject;
+
 import org.json.JSONArray;
-import org.json.JSONString;
-import org.json.JSONWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class SelectAgent {
     protected JPanel mainPanel;
-    private JList list1;
-    private JButton selectButton;
+    private JList agentList;
+    private JButton selectAgentButton;
     private JPanel SelectAgentPanel;
     private JPanel ListTripsPanel;
     private JList tripsList;
@@ -48,15 +41,14 @@ public class SelectAgent {
     private JList list6;
     private JButton addButton1;
     private JButton continueButton2;
-    private JButton saveButton;
-    private String temp;
+    private String agentName;
     private ArrayList<String> travelersTemp;
 
 
 
     public SelectAgent() {
         travelersTemp = new ArrayList<String>();
-        trip t = new trip();
+        trip trip = new trip();
         JSONArray jtravelers = new JSONArray();
         // List name of Agents in Trip
         DefaultListModel listModel1 = new DefaultListModel();
@@ -64,7 +56,7 @@ public class SelectAgent {
         for(int i = 0; i < agents.size(); i++){
             listModel1.addElement(agents.get(i).getName());
         }
-        list1.setModel(listModel1);
+        agentList.setModel(listModel1);
 
         // List Travelers
         DefaultListModel listModel2 = new DefaultListModel();
@@ -83,9 +75,17 @@ public class SelectAgent {
         list3.setModel(listModel4);
 
         // Go to page that shows the list of trips to edit or creating a trip
-        selectButton.addActionListener(new ActionListener() {
+        selectAgentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (Person agent : agents) {
+                    if (agent.getName().equalsIgnoreCase((String) agentList.getSelectedValue())) {
+                        agentName = agent.getName();
+                        trip.addAgent(agentName);
+                    }
+                }
+
+
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ListTripsCard");
             }
@@ -113,7 +113,7 @@ public class SelectAgent {
                 }
                 for(String traveler: travelersTemp)
                 {
-                    t.addTravelers(traveler);/////
+                    trip.addTravelers(traveler);/////
                 }
                 list6.setModel(listModel3);
             }
@@ -134,22 +134,17 @@ public class SelectAgent {
                 for(int i = 0; i < packages.size(); i++){
                     if(packages.get(i).getTravelsFrom().equalsIgnoreCase((String) list3.getSelectedValue())){
                         temp = packages.get(i).getTravelsFrom();
-                        t.addPackages(temp);
+                        trip.addPackages(temp);
                     }
                 }
 
                 list4.setModel(listModel5);
             }
         });
-        selectButton.addActionListener(new ActionListener() {
+        selectAgentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < agents.size(); i++){
-                    if(agents.get(i).getName().equalsIgnoreCase((String) list1.getSelectedValue())){
-                        temp = agents.get(i).getName();
-                        t.addAgent(temp);
-                    }
-                }
+
             }
         });
         continueButton1.addActionListener(new ActionListener() {

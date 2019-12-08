@@ -20,12 +20,12 @@ import java.io.IOException;
  * @author johnn
  */
 public class trip {
-    JSONObject Trip = new JSONObject();
-    JSONObject Travelers = new JSONObject();
-    public int state;
-    JSONArray jArray;
+    private JSONObject Trip = new JSONObject();
+    private JSONObject Travelers = new JSONObject();
+    private int state;
+    private TravelAgent agent;
     Scanner sc = new Scanner(System.in);
-    public trip()
+    trip()
     {
         state = 1;
     }
@@ -52,9 +52,9 @@ public class trip {
     }
     public void addedTravelers()
     {
-        jArray = new JSONArray();
+        JSONArray jArray = new JSONArray();
         jArray.put(Travelers);
-        Trip.put("travelers",jArray);
+        Trip.put("travelers", jArray);
     }
     public void writeTrip()
     {
