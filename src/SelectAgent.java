@@ -132,7 +132,7 @@ public class SelectAgent {
                 for(int i = 0; i < packages.size(); i++){
                     if(packages.get(i).getTravelsFrom().equalsIgnoreCase((String) list3.getSelectedValue())){
                         temp = packages.get(i).getTravelsFrom();
-                        t.addPackages(temp);
+                        t.addPackages(Integer.parseInt(temp));
                     }
                 }
 

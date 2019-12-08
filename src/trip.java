@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javatest;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONString;
@@ -19,30 +18,30 @@ import org.json.JSONWriter;
  * @author johnn
  */
 public class trip {
-    JSONObject Trip = new JSONObject();
+    JSONObject tripJson = new JSONObject();
     JSONArray Travelers = new JSONArray();
     Scanner sc = new Scanner(System.in);
-    public trip()
-    {
-        
-    }
+    private String id;
+    private String thankYouNote;
+
+    public trip(){}
     public void addPackages(int i)
     {   //This requires the use of getting the int value of package
-        Trip.put("packages", "Packages" + Integer.toString(i));
+        tripJson.put("packages", "Packages" + Integer.toString(i));
     }
     public void addTravelers(String name)
     {
-      Trip.put("travelers",name);
+        tripJson.put("travelers",name);
     }
     public void addAgent(String nameOfAgent)
     {
-        Trip.put("agent", nameOfAgent);
+        tripJson.put("agent", nameOfAgent);
     }
     public void writeTrip()
     {
         try(FileWriter file = new FileWriter("trips.json"))
         {
-            file.write(Trip.toString());
+            file.write(tripJson.toString());
             file.flush();
         //Files.write(Paths.get("tripsFile"), Trip.toJSONString().getBytes());
         }
