@@ -39,6 +39,10 @@ public class Trip {
         travelers.put(traveler.getName());
 
     }
+    public void addPayment(String paymentType, Double amountPaid){
+        tripJson.put("paymentType", paymentType);
+        tripJson.put("amoutnPaid", amountPaid);
+    }
     public void commitTravelers(){ //insert added travelers into tripJson
         tripJson.put("travelers", travelers);
     }
@@ -46,15 +50,12 @@ public class Trip {
     {
         tripJson.put("state",Integer.toString(i));
     }
-    public void addAgent(String nameOfAgent)
-    {
-        tripJson.put("agent", nameOfAgent);
-        //state = 1;
-        // System.out.println("Added agent");
-    }
     public void addAgent(Person person){
         tripJson.put("agent", person.getName());
 
+    }
+    public void addNote(String note){
+        tripJson.put("thankYouNote", note);
     }
     public void writeTrip()
     {

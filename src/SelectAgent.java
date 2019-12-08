@@ -166,15 +166,25 @@ public class SelectAgent {
         payButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //go to payment type screen
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "PayCreditCard");
+                if(paymentMethodList.getSelectedIndex() == 1) {
+                    //go to payment type screen
+                    CardLayout cl = (CardLayout) mainPanel.getLayout();
+                    cl.show(mainPanel, "PayCreditCard");
+                } else {
+                    trip.setState(4);
+                    CardLayout cl = (CardLayout) mainPanel.getLayout();
+                    cl.show(mainPanel, "ThankYouCard");
+                }
             }
         });
         payButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //commit payment details
+
+
                 //go to payment type screen
+                trip.setState(4);
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ThankYouCard");
             }
@@ -182,11 +192,12 @@ public class SelectAgent {
         addNoteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //@TODO: add thank you note
-
+                //add thank you note
+                trip.addNote(thankYouTextArea.getText());
 
 
                 // then go to itenerary
+                trip.setState(5);
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "IteneraryCard");
             }
