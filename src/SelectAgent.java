@@ -5,16 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.json.JSONObject;
+
 import org.json.JSONArray;
-import org.json.JSONString;
-import org.json.JSONWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
-import org.json.JSONTokener;
 
 public class SelectAgent {
     protected JPanel mainPanel;
@@ -47,11 +39,13 @@ public class SelectAgent {
     private JTextArea iteneraryTextArea;
     private JButton doneButton;
     private JList assignedTravelerList;
-    private JButton addButton1;
+    private JButton addTravelerButton;
     private JButton continueButton2;
     private String agentName;
-    private Person currentAgent;
     private ArrayList<String> travelersTemp;
+    private Person currentAgent;
+    private DefaultListModel assignedTravelersListModel = new DefaultListModel();
+
 
     public SelectAgent() {
         travelersTemp = new ArrayList<String>();
@@ -111,38 +105,31 @@ public class SelectAgent {
             }
         });
         // Adding Travelers to a Trip List
-        DefaultListModel listModel3 = new DefaultListModel();
-        addButton1.addActionListener(new ActionListener() {
+
+        addTravelerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listModel3.addElement(availableTravelerList.getSelectedValue());
-                for (Traveler traveler1 : travelers) {
-                    if (traveler1.getName().equalsIgnoreCase((String) availableTravelerList.getSelectedValue())) {
-                        travelersTemp.add(traveler1.getName());
-                    }
-                }
-                for(String traveler: travelersTemp)
-                {
-                    trip.addTravelers(traveler);/////
-                    jo.put("travelers", traveler);
-                }
-                assignedTravelerList.setModel(listModel3);
+                //move selected traveler from availableTravelers list to assignedTravlers list
+                assignedTravelersListModel.addElement(availableTravelerList.getSelectedValue());
+
+
+                assignedTravelerList.setModel(assignedTravelersListModel);
             }
         });
         continueButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //add assigned travelers to trip
-                for(String traveler : assignedTravelerList.getModel()){
-
+                for(int i = 0; i<assignedTravelerList.getModel().getSize();i++){
+                    trip.addTravelers((Person) assignedTravelerList.getModel().getElementAt(i));
                 }
-                trip.addTravelers();
+
+
                 //go to package screen
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "AddPackageCard");
-                JSONArray ja = new JSONArray();
-                ja.put(jo);
-                t.addedTravelers(ja);
+
+
             }
         });
         DefaultListModel listModel5 = new DefaultListModel();
@@ -151,9 +138,9 @@ public class SelectAgent {
             public void actionPerformed(ActionEvent e) {
                 listModel5.addElement(availablePackageList.getSelectedValue());
                 String temp;
-                for(int i = 0; i < packages.size(); i++){
-                    if(packages.get(i).getTravelsFrom().equalsIgnoreCase((String) availablePackageList.getSelectedValue())){
-                        temp = packages.get(i).getTravelsFrom();
+                for (Package aPackage : packages) {
+                    if (aPackage.getTravelsFrom().equalsIgnoreCase((String) availablePackageList.getSelectedValue())) {
+                        temp = aPackage.getTravelsFrom();
                         trip.addPackages(temp);
                     }
                 }
