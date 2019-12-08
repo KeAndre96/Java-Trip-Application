@@ -19,7 +19,7 @@ import org.json.JSONWriter;
  */
 public class Trip {
     JSONObject tripJson = new JSONObject();
-    JSONArray Travelers = new JSONArray();
+    JSONArray travelers = new JSONArray();
     Scanner sc = new Scanner(System.in);
     private String id;
     private String thankYouNote;
@@ -31,8 +31,12 @@ public class Trip {
     }
     public void addTravelers(Person traveler)
     {
-        tripJson.put("travelers",traveler.getName()); //not sure if this is used
+        //travelers.
+        tripJson.put("traveler",traveler.getName());
         // System.out.println("Added Traveler");
+    }
+    public void commitTravelers(){ //insert added travelers into tripJson
+        tripJson.put("travelers", travelers);
     }
     public void setState(int i)
     {

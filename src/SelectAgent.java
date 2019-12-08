@@ -124,7 +124,8 @@ public class SelectAgent {
                     trip.addTravelers((Person) assignedTravelerList.getModel().getElementAt(i));
                 }
 
-
+                trip.commitTravelers(); //saves added travelers
+                trip.writeTrip();
                 //go to package screen
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "AddPackageCard");
