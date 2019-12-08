@@ -48,13 +48,13 @@ public class SelectAgent {
 
     public SelectAgent() {
         travelersTemp = new ArrayList<String>();
-        trip trip = new trip();
+        Trip trip = new Trip();
         JSONArray jtravelers = new JSONArray();
         // List name of Agents in Trip
         DefaultListModel listModel1 = new DefaultListModel();
         List<Person> agents = AgentOptions.GetsOptions();
-        for(int i = 0; i < agents.size(); i++){
-            listModel1.addElement(agents.get(i).getName());
+        for (Person agent : agents) {
+            listModel1.addElement(agent.getName());
         }
         agentList.setModel(listModel1);
 
@@ -150,6 +150,10 @@ public class SelectAgent {
         continueButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Save setState
+                trip.setState(3);
+                trip.writeTrip();
+
                 //go to payment type screen
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ChoosePaymentCard");
