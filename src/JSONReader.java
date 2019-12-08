@@ -16,8 +16,10 @@ public class JSONReader extends Reader{
     {
         System.out.println("made it here!");
         FileReader reader = new FileReader(this.filename);
+
         JSONParser jp = new JSONParser();
-        jp.parse(reader);
+        Object obj = jp.parse(reader);
+        System.out.println(obj);
         //JSONObject jo = JSONObject();
     }
 }
