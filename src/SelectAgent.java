@@ -54,6 +54,7 @@ public class SelectAgent {
 
 
     public SelectAgent() {
+        travelersTemp = new ArrayList<String>();
         trip t = new trip();
         JSONArray jtravelers = new JSONArray();
         // List name of Agents in Trip
@@ -148,6 +149,50 @@ public class SelectAgent {
                         t.addAgent(temp);
                     }
                 }
+            }
+        });
+        continueButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //go to payment type screen
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ChoosePaymentCard");
+            }
+        });
+        payButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //go to payment type screen
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "PayCreditCard");
+            }
+        });
+        payButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //go to payment type screen
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ThankYouCard");
+            }
+        });
+        addNoteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //@TODO: add thank you note
+
+
+
+                // then go to itenerary
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "IteneraryCard");
+            }
+        });
+        doneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //go to payment type screen
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ListTripsCard");
             }
         });
     }
