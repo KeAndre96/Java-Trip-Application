@@ -5,13 +5,21 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONString;
+import org.json.JSONWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.JSONTokener;
 
 public class SelectAgent {
     protected JPanel mainPanel;
-    private JList agentList;
-    private JButton selectAgentButton;
+    private JList list1;
+    private JButton selectButton;
     private JPanel SelectAgentPanel;
     private JPanel ListTripsPanel;
     private JList tripsList;
@@ -23,40 +31,41 @@ public class SelectAgent {
     private JPanel PayCreditPanel;
     private JPanel AddThankYouNotePanel;
     private JPanel ShowIteneraryPanel;
-    private JList availableTravelerList;
-    private JList availablePackageList;
-    private JList assignedPackageList;
+    private JList list2;
+    private JList list3;
+    private JList list4;
     private JButton addButton;
     private JButton continueButton1;
-    private JList paymentMethodList;
+    private JList list5;
     private JButton payButton;
-    private JTextField cardNumberField;
-    private JTextField expDateField;
-    private JTextField zipField;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTextField textField4;
     private JButton payButton1;
-    private JTextArea thankYouTextArea;
+    private JTextArea textArea1;
     private JButton addNoteButton;
-    private JTextArea iteneraryTextArea;
+    private JTextArea textArea2;
     private JButton doneButton;
-    private JList assignedTravelerList;
+    private JList list6;
     private JButton addButton1;
     private JButton continueButton2;
-    private String agentName;
+    private JButton saveButton;
+    private String temp;
     private ArrayList<String> travelersTemp;
-    private Person currentAgent;
-
 
     public SelectAgent() {
-        travelersTemp = new ArrayList<String>();
-        Trip trip = new Trip();
-        JSONArray jtravelers = new JSONArray();
+        trip t = new trip();
+        travelersTemp = new ArrayList<>();
+        JSONObject jo = new JSONObject();
+        //JSONObject jread = (JSONObject) r.readJSON("trips.json");
+        temp= "";
         // List name of Agents in Trip
         DefaultListModel listModel1 = new DefaultListModel();
         List<Person> agents = AgentOptions.GetsOptions();
-        for (Person agent : agents) {
-            listModel1.addElement(agent.getName());
+        for(int i = 0; i < agents.size(); i++){
+            listModel1.addElement(agents.get(i).getName());
         }
-        agentList.setModel(listModel1);
+        list1.setModel(listModel1);
 
         // List Travelers
         DefaultListModel listModel2 = new DefaultListModel();
@@ -64,7 +73,7 @@ public class SelectAgent {
         for(int i = 0; i < agents.size(); i++){
             listModel2.addElement(travelers.get(i).getName());
         }
-        availableTravelerList.setModel(listModel2);
+        list2.setModel(listModel2);
 
         // List Packages
         DefaultListModel listModel4 = new DefaultListModel();
@@ -72,21 +81,12 @@ public class SelectAgent {
         for(int i = 0; i < packages.size(); i++){
             listModel4.addElement(packages.get(i).getTravelsTo());
         }
-        availablePackageList.setModel(listModel4);
+        list3.setModel(listModel4);
 
         // Go to page that shows the list of trips to edit or creating a trip
-        selectAgentButton.addActionListener(new ActionListener() {
+        selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (Person agent : agents) {
-                    if (agent.getName().equalsIgnoreCase((String) agentList.getSelectedValue())) {
-                        agentName = agent.getName();
-                        //trip.addAgent(agentName);
-                        currentAgent = agent;
-                    }
-                }
-
-
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ListTripsCard");
             }
@@ -94,9 +94,7 @@ public class SelectAgent {
         createTripButton.addActionListener(new ActionListener() { //create a trip and go to "add travelers" screen
             @Override
             public void actionPerformed(ActionEvent e) {
-                //add selected agent from previous screen
-                trip.addAgent(currentAgent);
-                trip.setState(1); //set state to 1: add traveler screen
+                //create trip
 
                 //switch to travelers card
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
@@ -108,17 +106,18 @@ public class SelectAgent {
         addButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listModel3.addElement(availableTravelerList.getSelectedValue());
+                listModel3.addElement(list2.getSelectedValue());
                 for(int i = 0; i < travelers.size(); i++){
-                    if(travelers.get(i).getName().equalsIgnoreCase((String) availableTravelerList.getSelectedValue())){
+                    if(travelers.get(i).getName().equalsIgnoreCase((String) list2.getSelectedValue())){
                         travelersTemp.add(travelers.get(i).getName());
                     }
                 }
                 for(String traveler: travelersTemp)
                 {
-                    trip.addTravelers(traveler);/////
+                    jo.put("travelers", traveler);/////
                 }
-                assignedTravelerList.setModel(listModel3);
+                //t.addedTravelers();
+                list6.setModel(listModel3);
             }
         });
         continueButton2.addActionListener(new ActionListener() {
@@ -126,70 +125,57 @@ public class SelectAgent {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "AddPackageCard");
+                JSONArray ja = new JSONArray();
+                ja.put(jo);
+                t.addedTravelers(ja);
             }
         });
         DefaultListModel listModel5 = new DefaultListModel();
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listModel5.addElement(availablePackageList.getSelectedValue());
-                String temp;
+                listModel5.addElement(list3.getSelectedValue());
                 for(int i = 0; i < packages.size(); i++){
-                    if(packages.get(i).getTravelsFrom().equalsIgnoreCase((String) availablePackageList.getSelectedValue())){
-                        temp = packages.get(i).getTravelsFrom();
-                        trip.addPackages(temp);
+                    if(packages.get(i).getTravelsTo().equalsIgnoreCase((String) list3.getSelectedValue())){
+                        t.addPackages(packages.get(i).getTravelsTo());
                     }
                 }
 
-                assignedPackageList.setModel(listModel5);
+                list4.setModel(listModel5);
             }
         });
-        continueButton1.addActionListener(new ActionListener() {
+        selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Save setState
-                trip.setState(3);
-                trip.writeTrip();
+                for(int i = 0; i < agents.size(); i++){
+                    if(agents.get(i).getName().equalsIgnoreCase((String) list1.getSelectedValue())){
+                        temp = agents.get(i).getName();
+                        t.addAgent(agents.get(i).getName());
+                    }
+                }
+            }
+        });
+        saveButton.addActionListener(new ActionListener() {
+            @Override //Save from Package Screen
+            public void actionPerformed(ActionEvent actionEvent) {
+                t.state = 3;
+                t.state(3);
+                t.writeTrip();
+            }
+        });
+        editTripButton.addActionListener(new ActionListener() {
+            @Override //Edit Trip Listener
+            public void actionPerformed(ActionEvent actionEvent) {
+                JSONReader r = new JSONReader("trips.json");
+                try
+                {
+                   r.readJSON();
+                }
+                catch(Exception E)
+                {
+                    System.out.println("There was an error!");
+                }
 
-                //go to payment type screen
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "ChoosePaymentCard");
-            }
-        });
-        payButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //go to payment type screen
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "PayCreditCard");
-            }
-        });
-        payButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //go to payment type screen
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "ThankYouCard");
-            }
-        });
-        addNoteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //@TODO: add thank you note
-
-
-
-                // then go to itenerary
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "IteneraryCard");
-            }
-        });
-        doneButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //go to payment type screen
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "ListTripsCard");
             }
         });
     }
