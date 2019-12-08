@@ -27,7 +27,7 @@ public class SelectAgent {
     private JList availablePackageList;
     private JList assignedPackageList;
     private JButton addButton;
-    private JButton continueButton1;
+    private JButton addPackagesContinueButton;
     private JList paymentMethodList;
     private JButton payButton;
     private JTextField cardNumberField;
@@ -125,6 +125,7 @@ public class SelectAgent {
                 }
 
                 trip.commitTravelers(); //saves added travelers
+                trip.setState(2);
                 trip.writeTrip();
                 //go to package screen
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
@@ -149,9 +150,10 @@ public class SelectAgent {
                 assignedPackageList.setModel(listModel5);
             }
         });
-        continueButton1.addActionListener(new ActionListener() {
+        addPackagesContinueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                trip.commitPackages();
                 //Save setState
                 trip.setState(3);
                 trip.writeTrip();

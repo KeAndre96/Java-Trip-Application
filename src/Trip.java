@@ -20,20 +20,24 @@ import org.json.JSONWriter;
 public class Trip {
     JSONObject tripJson = new JSONObject();
     JSONArray travelers = new JSONArray();
+    JSONArray packages = new JSONArray();
     Scanner sc = new Scanner(System.in);
     private String id;
     private String thankYouNote;
 
     public Trip(){}
-    public void addPackages(String i)
+    public void addPackages(String fromLocation)
     {   //This requires the use of getting the int value of package
-        tripJson.put("packages", "Packages" + i);
+        packages.put(fromLocation);
+    }
+    public void commitPackages(){
+        //commit packages list to tripJson
+        tripJson.put("packages", packages);
     }
     public void addTravelers(Person traveler)
     {
-        //travelers.
-        tripJson.put("traveler",traveler.getName());
-        // System.out.println("Added Traveler");
+        travelers.put(traveler.getName());
+
     }
     public void commitTravelers(){ //insert added travelers into tripJson
         tripJson.put("travelers", travelers);
