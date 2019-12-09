@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -125,7 +127,7 @@ public class SelectAgent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //add assigned travelers to trip
-                for(int i = 0; i<assignedTravelerList.getModel().getSize();i++){
+                for(int i = 0; i < assignedTravelerList.getModel().getSize();i++){
                     trip.addTravelers((Person) assignedTravelerList.getModel().getElementAt(i));
                 }
 
@@ -186,10 +188,13 @@ public class SelectAgent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //commit payment details
+                //for(int i = 0; i < )
 
 
                 //go to payment type screen
+                trip.addPaymentDetails((String)cardNumberField.getText(),(String)expDateField.getText(),(String)zipField.getText());//////////////////////////////////////
                 trip.setState(4);
+                trip.writeTrip();
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ThankYouCard");
             }
@@ -265,10 +270,10 @@ public class SelectAgent {
         saveButtonInPaymentState.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    trip.setState(4);
-                    trip.writeTrip();
-                    CardLayout cl = (CardLayout) mainPanel.getLayout();
-                    cl.show(mainPanel, "ListTripsCard");
+                trip.setState(4);
+                trip.writeTrip();
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ListTripsCard");
             }
         });
         // Save the state at put in card details
@@ -289,6 +294,25 @@ public class SelectAgent {
                 trip.writeTrip();
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ListTripCard");
+            }
+        });
+        editTripButton.addActionListener(new ActionListener() {
+            @Override //read JSON file
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+        paymentMethodList.addComponentListener(new ComponentAdapter() {
+            @Override //Gte the payment method value
+            public void componentResized(ComponentEvent e) {
+                for(int i = 0; i < paymentMethodList.getModel().getSize(); i++) {
+                    //trip.addTravelers((Person) assignedTravelerList.getModel().getElementAt(i));
+                    //String textValue = paymentMethodList.getSelectedValue().toString();
+                    trip.addPaymentMethod((String)paymentMethodList.getModel().getElementAt(i));
+                    trip.writeTrip();
+                }
+
+                super.componentResized(e);
             }
         });
     }

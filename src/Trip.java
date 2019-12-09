@@ -39,6 +39,7 @@ public class Trip {
         travelers.put(traveler.getName());
 
     }
+
     public void addPayment(String paymentType, Double amountPaid){
         tripJson.put("paymentType", paymentType);
         tripJson.put("amoutnPaid", amountPaid);
@@ -54,9 +55,20 @@ public class Trip {
         tripJson.put("agent", person.getName());
 
     }
+    public void addPaymentMethod(String pm)
+    {
+        tripJson.put("paymentMethod", pm);
+    }
     public void addNote(String note){
         tripJson.put("thankYouNote", note);
     }
+    public void addPaymentDetails(String num, String date, String zip)
+    {
+        tripJson.put("cardNum", num);
+        tripJson.put("Date", date);
+        tripJson.put("Zip Code", zip);
+    }
+
     public void writeTrip()
     {
         try(FileWriter file = new FileWriter("trips.json"))
