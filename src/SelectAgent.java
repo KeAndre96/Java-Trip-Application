@@ -220,6 +220,27 @@ public class SelectAgent {
                 try
                 {
                     r.readJSON();
+                    // Go back to add travelers
+                    if(trip.getState() == 2){
+                        CardLayout cl = (CardLayout) mainPanel.getLayout();
+                        cl.show(mainPanel, "AddTravelersCard");
+                    }
+                    if(trip.getState() == 3){
+                        CardLayout cl = (CardLayout) mainPanel.getLayout();
+                        cl.show(mainPanel, "AddPackageCard");
+                    }
+                    if(trip.getState() == 4){
+                        CardLayout cl = (CardLayout) mainPanel.getLayout();
+                        cl.show(mainPanel, "ChoosePaymentCard");
+                    }
+                    if(trip.getState() == 5){
+                        CardLayout cl = (CardLayout) mainPanel.getLayout();
+                        cl.show(mainPanel, "PayCreditCard");
+                    }
+                    if(trip.getState() == 6){
+                        CardLayout cl = (CardLayout) mainPanel.getLayout();
+                        cl.show(mainPanel, "ThankYouCard");
+                    }
                 }
                 catch(Exception E)
                 {
@@ -276,7 +297,7 @@ public class SelectAgent {
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ListTripsCard");
             }
-        });
+        });///////////////////
         // Save the state at put in card details
         saveButtonInCardDetailsState.addActionListener(new ActionListener() {
             @Override
@@ -314,6 +335,88 @@ public class SelectAgent {
                 }
 
                 super.componentResized(e);
+            }
+        });
+        //Save the state at picking travelers
+        saveButtonInTravelerState.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JSONReader r = new JSONReader("trips.json");
+                try
+                {
+                    r.readJSON();
+                    //Object temp = r.getJSON();
+                    DefaultListModel listModel = new DefaultListModel();
+                    tripsList.setModel(listModel);
+                }
+                catch(Exception E)
+                {
+                    System.out.println("There was an error!");
+                }
+                //add assigned travelers to trip
+                for(int i = 0; i<assignedTravelerList.getModel().getSize();i++){
+                    trip.addTravelers((Person) assignedTravelerList.getModel().getElementAt(i));
+                }
+
+                trip.commitTravelers(); //saves added travelers
+                trip.setState(2);
+                trip.writeTrip();
+                //go to package screen
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ListTripsCard");
+            }
+        });
+        // Save the state at picking the package
+        saveButtonInPackageState.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                trip.commitPackages();
+                //Save setState
+                trip.setState(3);
+                trip.writeTrip();
+
+                //go to payment type screen
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ListTripsCard");
+            }
+        });
+        // Save the state at picking which payment you want
+        saveButtonInPaymentState.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                trip.setState(4);
+                trip.writeTrip();
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ListTripsCard");
+            }
+        });
+        // Save the state at put in card details
+        saveButtonInCardDetailsState.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                trip.setState(5);
+                trip.writeTrip();
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ListTripsCard");
+            }
+        });
+
+// Save state at thank you note
+        saveButtonInThankYouState.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                trip.setState(6);
+                trip.writeTrip();
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "ListTripsCard");
+            }
+        });
+        addNoteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                trip.addNote((String)thankYouTextArea.getText());
+                trip.writeTrip();
             }
         });
     }

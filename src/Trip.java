@@ -24,6 +24,7 @@ public class Trip {
     Scanner sc = new Scanner(System.in);
     private String id;
     private String thankYouNote;
+    private int state;
 
     public Trip(){}
     public void addPackages(String fromLocation)
@@ -50,6 +51,7 @@ public class Trip {
     public void setState(int i)
     {
         tripJson.put("state",Integer.toString(i));
+        state = i;
     }
     public void addAgent(Person person){
         tripJson.put("agent", person.getName());
@@ -68,6 +70,14 @@ public class Trip {
         tripJson.put("Date", date);
         tripJson.put("Zip Code", zip);
     }
+    public int getState(){
+        return state;
+    }
+    public void writeItinerary(String note)
+    {
+       tripJson.put("thankYou", note);
+    }
+
 
     public void writeTrip()
     {
