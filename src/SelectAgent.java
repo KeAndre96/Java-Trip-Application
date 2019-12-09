@@ -255,6 +255,13 @@ public class SelectAgent {
                 //go to payment type screen
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "ListTripsCard");
+                JSONReader r = new JSONReader("trips.json");
+                try{
+                    r.readJSON();
+                }
+                catch(Exception E){
+                    System.out.println("There was an error!");
+                }
             }
         });
         // Save the state at picking travelers
