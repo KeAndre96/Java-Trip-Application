@@ -91,6 +91,7 @@ public class SelectAgent {
                         agentName = agent.getName();
                         //trip.addAgent(agentName);
                         currentAgent = agent;
+
                     }
                 }
 
@@ -308,8 +309,8 @@ public class SelectAgent {
                 for(int i = 0; i < paymentMethodList.getModel().getSize(); i++) {
                     //trip.addTravelers((Person) assignedTravelerList.getModel().getElementAt(i));
                     //String textValue = paymentMethodList.getSelectedValue().toString();
-                    trip.addPaymentMethod((String)paymentMethodList.getModel().getElementAt(i));
-                    trip.writeTrip();
+                    //trip.addPaymentMethod((String)paymentMethodList.getModel().getElementAt(i));
+                    //trip.writeTrip();
                 }
 
                 super.componentResized(e);
